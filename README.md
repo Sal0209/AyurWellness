@@ -19,10 +19,12 @@ Integrated with Google Maps API, users can locate Ayurvedic clinics and hospital
 
 **Multilingual Support**
 To ensure accessibility, the platform uses Google Translate API to translate content into various Indian languages.
+![Screenshot 2025-04-24 202815](https://github.com/user-attachments/assets/6d972747-ce27-4b60-b37a-88cecd2c18d7)
+![Screenshot 2025-04-17 120619](https://github.com/user-attachments/assets/29a28e2d-5713-4b20-a4a9-8156237d12b1)
+![Screenshot 2025-04-17 120527](https://github.com/user-attachments/assets/17be5f98-3c3d-42a1-b5f3-d017099e1d46)
+![Screenshot 2025-04-17 120436](https://github.com/user-attachments/assets/953aeeff-e5bc-478e-8d80-ad47d9b9c088)
+![Screenshot 2025-04-17 120252](https://github.com/user-attachments/assets/40aefb81-2a0b-42f4-818e-e372cce96926)
+![Screenshot 2025-04-06 190142](https://github.com/user-attachments/assets/dc477459-0af5-478a-960c-c45b536ff607)
+![Screenshot 2025-04-06 190105](https://github.com/user-attachments/assets/0d161449-5eba-4942-ae7c-65e0fb176f33)
 
-![Screenshot 2025-04-17 120619](https://github.com/user-attachments/assets/6f172407-abc9-452b-997e-5ba3a2830413)
-![Screenshot 2025-04-17 120527](https://github.com/user-attachments/assets/51636274-b8c4-4d65-bd51-c89fc705e35c)
-![Screenshot 2025-04-17 120436](https://github.com/user-attachments/assets/95828e09-ab96-444d-bfb5-d9987d548146)
-![Screenshot 2025-04-17 120252](https://github.com/user-attachments/assets/a640393a-0732-4fd7-8788-1d9f4008c553)
-![Screenshot 2025-04-06 190105](https://github.com/user-attachments/assets/b40cbb46-5f0c-4d1d-9850-d8889e6f58b6)
 
