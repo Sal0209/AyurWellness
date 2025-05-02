@@ -1,7 +1,10 @@
 AyurWellness 🌿
+
 AyurWellness is a holistic wellness platform dedicated to promoting natural health through the principles of Ayurveda. Our mission is to provide accessible, personalized, and authentic Ayurvedic solutions for individuals seeking balance and well-being.
 
 - Features
+
+
 **Prakriti Classification (Dosha Detection)**
 Users answer a set of questions, and a machine learning model (Random Forest Classifier) classifies them into one of the Ayurvedic Prakriti types: Kapha, Pitta, Vata, or their combinations (e.g., Vata+Pitta). The model achieves high accuracy and highlights key influencing features for smarter health insights.
 
