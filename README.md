@@ -20,8 +20,8 @@ Integrated with Google Maps API, users can locate Ayurvedic clinics and hospital
 **Multilingual Support**
 To ensure accessibility, the platform uses Google Translate API to translate content into various Indian languages.
 
-![Screenshot 2025-04-06 190142](https://github.com/user-attachments/assets/036a735c-1798-4236-aaf1-2d9b46a86bee)
-![Screenshot 2025-04-06 190105](https://github.com/user-attachments/assets/0004df99-5b6b-40df-b976-b3eb34bb53d6)
+![Screenshot 2025-04-06 190142](https://github.com/user-attachments/assets/4018ced5-e8e5-4400-8d3e-f08b04dd4d25)
+![Screenshot 2025-04-04 095310](https://github.com/user-attachments/assets/f1345245-5db2-4fef-a693-e78b30959547)
 
 
 
