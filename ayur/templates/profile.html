@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - Ayurveda Prakruti{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="section-title text-center">My Profile</h1>
+    
+    <!-- User Information -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <h2 class="h4 mb-0">User Information</h2>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h3 class="h6 text-muted mb-2">Username</h3>
+                            <p class="mb-4">{{ current_user.username }}</p>
+                            
+                            <h3 class="h6 text-muted mb-2">Email</h3>
+                            <p class="mb-4">{{ current_user.email }}</p>
+                            
+                            <h3 class="h6 text-muted mb-2">Full Name</h3>
+                            <p class="mb-0">{{ current_user.full_name }}</p>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h3 class="h6 text-muted mb-2">Phone Number</h3>
+                            <p class="mb-4">{{ current_user.phone or 'Not provided' }}</p>
+                            
+                            <h3 class="h6 text-muted mb-2">Date of Birth</h3>
+                            <p class="mb-4">{{ current_user.date_of_birth or 'Not provided' }}</p>
+                            
+                            <h3 class="h6 text-muted mb-2">Gender</h3>
+                            <p class="mb-0">{{ current_user.gender|capitalize if current_user.gender else 'Not provided' }}</p>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-end">
+                        <button class="btn btn-outline-success" disabled>
+                            <i class="fas fa-edit me-2"></i> Edit Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Prakruti Results -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <h2 class="h4 mb-0">My Prakruti Results</h2>
+                </div>
+                <div class="card-body p-4">
+                    {% if prakruti_results %}
+                        {% for result in prakruti_results %}
+                        <div class="result-item mb-4 {% if not loop.last %}pb-4 border-bottom{% endif %}">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h3 class="h5 mb-0">
+                                    Assessment #{{ loop.index }}
+                                    {% if loop.first %}
+                                    <span class="badge bg-success ms-2">Latest</span>
+                                    {% endif %}
+                                </h3>
+                                <small class="text-muted">{{ result.created_at.strftime('%B %d, %Y at %I:%M %p') }}</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <p class="mb-1"><strong>Dominant Dosha:</strong> <span class="text-success">{{ result.dominant_dosha|capitalize }}</span></p>
+                                {% if result.secondary_dosha %}
+                                <p class="mb-0"><strong>Secondary Dosha:</strong> {{ result.secondary_dosha|capitalize }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Dosha Bars -->
+                            <div class="dosha-bars">
+                                {% set total = result.vata_score + result.pitta_score + result.kapha_score %}
+                                {% set vata_percentage = (result.vata_score / total * 100)|round|int %}
+                                {% set pitta_percentage = (result.pitta_score / total * 100)|round|int %}
+                                {% set kapha_percentage = (result.kapha_score / total * 100)|round|int %}
+                                
+                                <!-- Vata Bar -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Vata</span>
+                                        <span>{{ vata_percentage }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-vata" role="progressbar" style="width: {{ vata_percentage }}%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Pitta Bar -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Pitta</span>
+                                        <span>{{ pitta_percentage }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-pitta" role="progressbar" style="width: {{ pitta_percentage }}%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Kapha Bar -->
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Kapha</span>
+                                        <span>{{ kapha_percentage }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-kapha" role="progressbar" style="width: {{ kapha_percentage }}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <a href="{{ url_for('results') }}" class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-eye me-1"></i> View Detailed Results
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <p class="mb-3">You haven't taken the Prakruti assessment quiz yet.</p>
+                            <a href="{{ url_for('quiz') }}" class="btn btn-success">
+                                <i class="fas fa-clipboard-list me-2"></i> Take the Quiz
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="d-flex flex-wrap justify-content-between">
+                <a href="{{ url_for('quiz') }}" class="btn btn-success mb-3">
+                    <i class="fas fa-clipboard-list me-2"></i> Take Another Assessment
+                </a>
+                <a href="{{ url_for('remedies') }}" class="btn btn-outline-success mb-3">
+                    <i class="fas fa-leaf me-2"></i> View Remedies
+                </a>
+                <a href="{{ url_for('map') }}" class="btn btn-outline-success mb-3">
+                    <i class="fas fa-map-marker-alt me-2"></i> Find Ayurvedic Centers
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

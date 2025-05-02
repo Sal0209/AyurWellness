@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Your Prakruti Results - Ayurveda{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="section-title text-center">Your Prakruti Results</h1>
+    <p class="text-center lead mb-5">Based on your responses, we've analyzed your unique Ayurvedic constitution (Prakruti).</p>
+    
+    {% if 'quiz_results' in session %}
+    {% set results = session['quiz_results'] %}
+    
+    <!-- Dosha Percentages -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-4">Your Dosha Percentages</h2>
+                    
+                    <!-- Vata Bar -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h3 class="h6 mb-0">Vata (Air & Ether)</h3>
+                                <p class="text-muted small mb-0">Creative, Quick, Adaptable</p>
+                            </div>
+                            <span class="badge bg-vata">{{ results.vata_percentage }}%</span>
+                        </div>
+                        <div class="progress" style="height: 15px;">
+                            <div class="progress-bar bg-vata" role="progressbar" style="width: {{ results.vata_percentage }}%" aria-valuenow="{{ results.vata_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pitta Bar -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h3 class="h6 mb-0">Pitta (Fire & Water)</h3>
+                                <p class="text-muted small mb-0">Intense, Focused, Efficient</p>
+                            </div>
+                            <span class="badge bg-pitta">{{ results.pitta_percentage }}%</span>
+                        </div>
+                        <div class="progress" style="height: 15px;">
+                            <div class="progress-bar bg-pitta" role="progressbar" style="width: {{ results.pitta_percentage }}%" aria-valuenow="{{ results.pitta_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Kapha Bar -->
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h3 class="h6 mb-0">Kapha (Earth & Water)</h3>
+                                <p class="text-muted small mb-0">Steady, Grounded, Nurturing</p>
+                            </div>
+                            <span class="badge bg-kapha">{{ results.kapha_percentage }}%</span>
+                        </div>
+                        <div class="progress" style="height: 15px;">
+                            <div class="progress-bar bg-kapha" role="progressbar" style="width: {{ results.kapha_percentage }}%" aria-valuenow="{{ results.kapha_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Constitution Summary -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-{{ results.dominant_dosha }} text-white">
+                    <h2 class="h4 mb-0" style="background-color: green; color: black;">
+                        Your Dominant Dosha: {{ results.dominant_dosha|capitalize }}
+                    </h2>
+                    
+                </div>
+                <div class="card-body p-4">
+                    {% if results.dominant_dosha == 'vata' %}
+                    <p>Your constitution is primarily Vata, which means you embody the qualities of air and ether. You likely have a creative mind, quick thinking, and an adaptable nature. You tend to be enthusiastic, expressive, and quick to learn new information.</p>
+                    
+                    <h3 class="h5 mt-4 mb-3">Vata Characteristics:</h3>
+                    <ul>
+                        <li>Creative, imaginative, and quick-thinking</li>
+                        <li>Enthusiastic energy that comes in bursts</li>
+                        <li>Light, thin body frame with prominent joints</li>
+                        <li>Dry skin and hair</li>
+                        <li>Variable appetite and digestion</li>
+                        <li>Light, interrupted sleep patterns</li>
+                        <li>Quick to learn but may forget easily</li>
+                        <li>Tendency toward anxiety when out of balance</li>
+                    </ul>
+                    
+                    <h3 class="h5 mt-4 mb-3">Balancing Tips for Vata:</h3>
+                    <ul>
+                        <li>Maintain regular daily routines for eating, sleeping, and activities</li>
+                        <li>Favor warm, moist, cooked foods over cold, dry foods</li>
+                        <li>Stay hydrated and drink warm beverages</li>
+                        <li>Use warm oils for self-massage (abhyanga)</li>
+                        <li>Practice gentle, grounding yoga and meditation</li>
+                        <li>Keep warm and avoid excessive exposure to cold, dry weather</li>
+                        <li>Choose calming, soothing activities over stimulating ones</li>
+                    </ul>
+                    {% elif results.dominant_dosha == 'pitta' %}
+                    <p>Your constitution is primarily Pitta, which means you embody the qualities of fire and water. You likely have a sharp intellect, strong determination, and a focused nature. You tend to be precise, organized, and have good leadership qualities.</p>
+                    
+                    <h3 class="h5 mt-4 mb-3">Pitta Characteristics:</h3>
+                    <ul>
+                        <li>Sharp intellect with good concentration</li>
+                        <li>Medium build with good muscle development</li>
+                        <li>Warm body temperature and fair or reddish skin</li>
+                        <li>Strong appetite and efficient digestion</li>
+                        <li>Moderate sleep needs with consistent patterns</li>
+                        <li>Organized, precise, and articulate</li>
+                        <li>Good memory and comprehension</li>
+                        <li>Tendency toward irritability and intensity when out of balance</li>
+                    </ul>
+                    
+                    <h3 class="h5 mt-4 mb-3">Balancing Tips for Pitta:</h3>
+                    <ul>
+                        <li>Avoid excessive heat, sun exposure, and hot spicy foods</li>
+                        <li>Favor cooling, moderately heavy foods</li>
+                        <li>Include sweet, bitter, and astringent tastes in your diet</li>
+                        <li>Engage in moderate exercise, preferably during cooler times of day</li>
+                        <li>Practice cooling forms of yoga and meditation</li>
+                        <li>Make time for leisure, fun, and relaxation</li>
+                        <li>Cultivate patience, compassion, and non-judgment</li>
+                    </ul>
+                    {% elif results.dominant_dosha == 'kapha' %}
+                    <p>Your constitution is primarily Kapha, which means you embody the qualities of earth and water. You likely have a strong, stable body, excellent endurance, and a calm nature. You tend to be compassionate, methodical, and loyal.</p>
+                    
+                    <h3 class="h5 mt-4 mb-3">Kapha Characteristics:</h3>
+                    <ul>
+                        <li>Calm, steady, and grounded temperament</li>
+                        <li>Strong, solid physical build</li>
+                        <li>Smooth, oily skin and thick hair</li>
+                        <li>Regular appetite with slow, steady digestion</li>
+                        <li>Deep, prolonged sleep</li>
+                        <li>Excellent long-term memory</li>
+                        <li>Patient, compassionate, and supportive</li>
+                        <li>Tendency toward complacency and attachment when out of balance</li>
+                    </ul>
+                    
+                    <h3 class="h5 mt-4 mb-3">Balancing Tips for Kapha:</h3>
+                    <ul>
+                        <li>Maintain regular, stimulating exercise</li>
+                        <li>Favor light, warm, dry foods with pungent, bitter, and astringent tastes</li>
+                        <li>Minimize heavy, oily, sweet, sour, and salty foods</li>
+                        <li>Establish a regular sleep schedule, avoiding oversleeping</li>
+                        <li>Embrace change, new experiences, and challenges</li>
+                        <li>Practice energizing forms of yoga and breathing exercises</li>
+                        <li>Engage in mental stimulation and creative activities</li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Secondary Dosha (if available) -->
+    {% if results.secondary_dosha %}
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-{{ results.secondary_dosha }} text-white">
+                    <h2 class="h4 mb-0" style="background-color: green; color: black;">
+                        Your Secondary Dosha: {{ results.secondary_dosha|capitalize }}
+                    </h2>
+                    
+                </div>
+                <div class="card-body p-4">
+                    <p>Your secondary dosha is <strong>{{ results.secondary_dosha|capitalize }}</strong>, which adds another dimension to your constitution. This combination creates a unique prakruti that is distinctly yours.</p>
+                    
+                    {% if results.secondary_dosha == 'vata' %}
+                    <p>The <strong>Vata</strong> influence adds creativity, adaptability, and quick thinking to your primary dosha characteristics.</p>
+                    {% elif results.secondary_dosha == 'pitta' %}
+                    <p>The <strong>Pitta</strong> influence adds drive, focus, and intellect to your primary dosha characteristics.</p>
+                    {% elif results.secondary_dosha == 'kapha' %}
+                    <p>The <strong>Kapha</strong> influence adds stability, endurance, and calmness to your primary dosha characteristics.</p>
+                    {% endif %}
+                    
+                    <p>When working with a dual-doshic constitution, it's important to recognize which dosha may be becoming imbalanced at any given time and apply the appropriate balancing practices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Action Buttons -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="d-flex flex-wrap justify-content-between">
+                <a href="{{ url_for('remedies') }}" class="btn btn-success mb-3">
+                    <i class="fas fa-leaf me-2"></i> Explore Remedies for Your Dosha
+                </a>
+                <a href="{{ url_for('map') }}" class="btn btn-outline-success mb-3">
+                    <i class="fas fa-map-marker-alt me-2"></i> Find Ayurvedic Centers
+                </a>
+                {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('register') }}" class="btn btn-secondary mb-3">
+                    <i class="fas fa-user-plus me-2"></i> Register to Save Results
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Important Note -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3">Understanding Prakruti vs. Vikriti</h2>
+                    <p>Your <strong>Prakruti</strong> is your natural constitution determined at birth, while <strong>Vikriti</strong> is your current state, which may deviate from your natural balance due to lifestyle, diet, stress, and other factors.</p>
+                    <p>The quiz results reflect your <strong>Prakruti</strong> (natural constitution). For optimal health, Ayurveda recommends aligning your current state (Vikriti) with your natural constitution (Prakruti).</p>
+                    <p class="mb-0">To learn more about maintaining balance for your dosha type, explore our remedies section or consult with an Ayurvedic practitioner.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="alert alert-warning">
+                <p>No quiz results found. Please take the quiz to see your results.</p>
+                <a href="{{ url_for('quiz') }}" class="btn btn-success mt-3">Take the Quiz</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

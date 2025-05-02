@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Prakruti Assessment Quiz - Ayurveda{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="section-title text-center">Prakruti Assessment Quiz</h1>
+            <p class="lead mb-0">Answer these questions based on your natural tendencies throughout your life, not your current state. Consider how you've been most of your life to get an accurate assessment of your Prakruti (natural constitution).</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="quiz-container" id="quiz-container">
+                <!-- Progress Bar -->
+                <div class="quiz-progress mb-4">
+                    <div class="quiz-progress-bar" id="progress-bar" style="width: 5%;"></div>
+                </div>
+                
+                <!-- Question -->
+                <div class="card border-0 shadow mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-success px-3 py-2" id="question-number">1/20</span>
+                        </div>
+                        <h3 class="h4 mb-4" id="question-text">What is your body frame like?</h3>
+                        
+                        <!-- Options -->
+                        <div id="options-container">
+                            <!-- Options will be added dynamically by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="d-flex justify-content-between">
+                    <button id="prev-button" class="btn btn-outline-secondary" disabled>
+                        <i class="fas fa-arrow-left me-2"></i> Previous
+                    </button>
+                    <div>
+                        <button id="next-button" class="btn btn-success">
+                            Next <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        <button id="submit-button" class="btn btn-primary" style="display: none;">
+                            Submit Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="h5 mb-3">Tips for Accurate Results</h3>
+                    <ul class="mb-0">
+                        <li class="mb-2">Answer based on your lifelong tendencies, not temporary conditions.</li>
+                        <li class="mb-2">Consider how you've been for most of your life, not just recently.</li>
+                        <li class="mb-2">Answer honestly rather than what you think is "better" or "ideal."</li>
+                        <li class="mb-2">Take your time and reflect on each question before answering.</li>
+                        <li>If you're not sure about an answer, go with what feels most natural to you.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz-data.js') }}"></script>
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

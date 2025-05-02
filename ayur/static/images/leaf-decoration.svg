@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Main Leaf -->
+  <path d="M100,20 C60,20 20,60 20,100 C20,140 60,180 100,180 C100,180 100,100 100,100 C100,100 180,100 180,100 C180,60 140,20 100,20 Z" 
+        fill="#4CAF50" stroke="#388E3C" stroke-width="2" />
+        
+  <!-- Leaf Veins -->
+  <path d="M100,100 L100,20" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L40,40" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L20,100" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L40,160" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L100,180" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L160,160" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L180,100" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M100,100 L160,40" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="3,3" />
+  
+  <!-- Decorative Circle -->
+  <circle cx="100" cy="100" r="15" fill="#81C784" stroke="#388E3C" stroke-width="1.5" />
+  <circle cx="100" cy="100" r="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="1" />
+</svg>

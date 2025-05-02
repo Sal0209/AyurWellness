@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Find Ayurvedic Centers Near You{% endblock %}
+
+{% block styles %}
+<style>
+    .map-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .map-container iframe {
+        border: 2px solid #4CAF50;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .center-list {
+        height: 500px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+    
+    .center-item {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .center-item:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-2px);
+    }
+    
+    .center-detail {
+        display: none;
+    }
+    
+    .center-detail.active {
+        display: block;
+    }
+    
+    .filter-container {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .badge.bg-success {
+        background-color: #4CAF50 !important;
+    }
+    
+    @media (max-width: 768px) {
+        .map-container iframe {
+            width: 100% !important;
+            height: 300px !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="section-title text-center">Find Ayurvedic Centers</h1>
+    <p class="text-center lead mb-5">Locate Ayurvedic hospitals, clinics, and wellness centers near you</p>
+    
+    <!-- Map Container with Embedded Google Map -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="h4 mb-3">Nearby Ayurvedic Clinics</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d566379.0124804197!2d72.91678792949573!3d19.04866626245505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sayurvedic%20clinic%20or%20hospital!5e0!3m2!1sen!2sin!4v1731684998505!5m2!1sen!2sin" 
+                        width="80%" height="400px" style="border:0;" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filter Options -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mx-auto">
+            <div class="filter-container">
+                <h3 class="h5 mb-3">Find Centers in Other Locations</h3>
+                <form id="location-search-form" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="location-input" class="form-label">Enter a Location</label>
+                        <input type="text" class="form-control" id="location-input" placeholder="City, State or ZIP">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="type-filter" class="form-label">Center Type</label>
+                        <select class="form-select" id="type-filter">
+                            <option value="All" selected>All Types</option>
+                            <option value="Hospitals">Hospitals</option>
+                            <option value="Clinics">Clinics</option>
+                            <option value="Wellness Centers">Wellness Centers</option>
+                            <option value="Panchakarma">Panchakarma Centers</option>
+                            <option value="Consultation">Consultation</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-success w-100" id="search-button">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form submission handler
+        const searchForm = document.getElementById('location-search-form');
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const location = document.getElementById('location-input').value;
+            const centerType = document.getElementById('type-filter').value;
+            
+            if (location) {
+                // Update embedded map with the new location search
+                const mapContainer = document.querySelector('.map-container');
+                const iframe = mapContainer.querySelector('iframe');
+                
+                let searchQuery = 'ayurvedic';
+                if (centerType !== 'All') {
+                    searchQuery += ' ' + centerType.toLowerCase();
+                } else {
+                    searchQuery += ' clinic or hospital';
+                }
+                
+                // Create the updated iframe URL with the new search query and location
+                const updatedSrc = `https://www.google.com/maps/embed/v1/search?key=YOUR_GOOGLE_MAPS_API_KEY&q=${encodeURIComponent(searchQuery)}+in+${encodeURIComponent(location)}`;
+                
+                // If you don't have an API key, use this simpler URL that opens a generic Google Maps search
+                // Note: This doesn't require an API key but has more limited functionality
+                const simpleSrc = `https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d100000!2d72.8777!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s${encodeURIComponent(searchQuery)}+in+${encodeURIComponent(location)}!5e0!3m2!1sen!2sin!4v1731684998505!5m2!1sen!2sin`;
+                
+                // Use the simple src since we don't have an API key
+                iframe.src = simpleSrc;
+                
+                // Add loading animation
+                mapContainer.classList.add('loading');
+                
+                // Remove loading animation after the iframe loads
+                iframe.onload = function() {
+                    mapContainer.classList.remove('loading');
+                }
+                
+                // In a real implementation, you would also update the centers list based on the search
+                // For demo purposes, we'll skip that part
+            }
+        });
+        
+        // Filter functionality for the center type
+        const typeFilter = document.getElementById('type-filter');
+        typeFilter.addEventListener('change', function() {
+            const selectedType = this.value;
+            const centerItems = document.querySelectorAll('.center-item');
+            
+            centerItems.forEach(item => {
+                const typeBadge = item.querySelector('.badge').textContent;
+                
+                if (selectedType === 'All' || typeBadge.includes(selectedType)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

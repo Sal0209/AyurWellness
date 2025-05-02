@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block title %}Ayurvedic Remedies - Balance Your Dosha{% endblock %}
+
+{% block styles %}
+<style>
+    .remedy-detail {
+        display: none;
+    }
+    .remedy-detail.active {
+        display: block;
+    }
+    .dosha-tab {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="section-title text-center">Ayurvedic Remedies</h1>
+    <p class="text-center lead mb-5">Explore personalized Ayurvedic recommendations for common health concerns based on your dosha type.</p>
+    
+    <!-- Concern Selector -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h5 mb-3">Select a Health Concern</h2>
+                    <select class="form-select form-select-lg" id="concern-selector">
+                        <option value="" selected disabled>Choose a health concern...</option>
+                        <option value="digestive">Digestive Issues</option>
+                        <option value="sleep">Sleep Problems</option>
+                        <option value="stress">Stress & Anxiety</option>
+                        <option value="skin">Skin Issues</option>
+                        <option value="joint">Joint Pain</option>
+                        <option value="fever">Fever</option>
+                        <option value="cold">Common Cold</option>
+                        <option value="cough">Cough</option>
+                        <option value="acidity">Acidity & Heartburn</option>
+                        <option value="headache">Headache</option>
+                        <option value="allergy">Allergies</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Remedy Details -->
+    <div class="row mb-5" id="remedy-container" style="display: none;">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white py-3">
+                    <h2 class="h4 mb-0" id="remedy-title">Remedy Title</h2>
+                </div>
+                <div class="card-body p-0">
+                    <!-- Dosha Tabs -->
+                    <ul class="nav nav-tabs" id="dosha-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-selected="true">General Approach</button>
+                        </li>
+                        {% if 'quiz_results' in session %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="personalized-tab" data-bs-toggle="tab" data-bs-target="#personalized" type="button" role="tab" aria-selected="false">For Your Dosha</button>
+                        </li>
+                        {% else %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="vata-tab" data-bs-toggle="tab" data-bs-target="#vata" type="button" role="tab" aria-selected="false">Vata</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pitta-tab" data-bs-toggle="tab" data-bs-target="#pitta" type="button" role="tab" aria-selected="false">Pitta</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="kapha-tab" data-bs-toggle="tab" data-bs-target="#kapha" type="button" role="tab" aria-selected="false">Kapha</button>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="herbs-tab" data-bs-toggle="tab" data-bs-target="#herbs" type="button" role="tab" aria-selected="false">Herbs</button>
+                        </li>
+                    </ul>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content p-4" id="dosha-tab-content">
+                        <!-- General Approach Tab -->
+                        <div class="tab-pane fade show active" id="general" role="tabpanel">
+                            <h3 class="h5 mb-3">General Approach</h3>
+                            <p id="general-approach"></p>
+                        </div>
+                        
+                        {% if 'quiz_results' in session %}
+                        <!-- Personalized Tab (if quiz taken) -->
+                        <div class="tab-pane fade" id="personalized" role="tabpanel">
+                            <h3 class="h5 mb-3">Recommendations for Your Dosha: <span id="user-dosha-type" class="text-success">{{ session['quiz_results'].dominant_dosha|capitalize }}</span></h3>
+                            <div id="personalized-content"></div>
+                            
+                            {% if session['quiz_results'].secondary_dosha %}
+                            <h3 class="h5 mt-5 mb-3">Consider Also for Your Secondary Dosha: <span class="text-success">{{ session['quiz_results'].secondary_dosha|capitalize }}</span></h3>
+                            <div id="secondary-dosha-content"></div>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <!-- Individual Dosha Tabs (if no quiz taken) -->
+                        <div class="tab-pane fade" id="vata" role="tabpanel">
+                            <h3 class="h5 mb-3">Recommendations for Vata</h3>
+                            <p id="vata-recommendation"></p>
+                        </div>
+                        <div class="tab-pane fade" id="pitta" role="tabpanel">
+                            <h3 class="h5 mb-3">Recommendations for Pitta</h3>
+                            <p id="pitta-recommendation"></p>
+                        </div>
+                        <div class="tab-pane fade" id="kapha" role="tabpanel">
+                            <h3 class="h5 mb-3">Recommendations for Kapha</h3>
+                            <p id="kapha-recommendation"></p>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Herbs Tab -->
+                        <div class="tab-pane fade" id="herbs" role="tabpanel">
+                            <h3 class="h5 mb-3">Recommended Herbs</h3>
+                            <div id="herbs-content" class="d-flex flex-wrap gap-2"></div>
+                            <p class="mt-4 text-muted small">Note: Consult with an Ayurvedic practitioner before using herbs, especially if you have existing health conditions or are taking medications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Take Quiz Prompt (if no quiz results) -->
+    {% if 'quiz_results' not in session %}
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 bg-light">
+                <div class="card-body p-4 text-center">
+                    <h2 class="h5 mb-3">Get Personalized Recommendations</h2>
+                    <p class="mb-4">Take our Prakruti assessment quiz to receive recommendations tailored to your unique Ayurvedic constitution.</p>
+                    <a href="{{ url_for('quiz') }}" class="btn btn-success">
+                        Take the Quiz <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Disclaimer -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="h5 mb-3">Important Note</h3>
+                    <p class="mb-2">The remedies provided here are general guidelines based on Ayurvedic principles. Individual needs may vary based on your specific constitution and current health status.</p>
+                    <p class="mb-0">For serious health concerns or chronic conditions, please consult with a qualified Ayurvedic practitioner or healthcare provider. These remedies are complementary and not intended to replace professional medical advice or treatment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const concernSelector = document.getElementById('concern-selector');
+        const remedyContainer = document.getElementById('remedy-container');
+        const remedyTitle = document.getElementById('remedy-title');
+        const generalApproach = document.getElementById('general-approach');
+        
+        {% if 'quiz_results' not in session %}
+        const vataRecommendation = document.getElementById('vata-recommendation');
+        const pittaRecommendation = document.getElementById('pitta-recommendation');
+        const kaphaRecommendation = document.getElementById('kapha-recommendation');
+        {% else %}
+        const personalizedContent = document.getElementById('personalized-content');
+        {% if session['quiz_results'].secondary_dosha %}
+        const secondaryDoshaContent = document.getElementById('secondary-dosha-content');
+        {% endif %}
+        {% endif %}
+        
+        const herbsContent = document.getElementById('herbs-content');
+        
+        // Remedies database
+        const remediesData = {
+            "digestive": {
+                title: "Digestive Issues",
+                general_approach: "Maintain regular eating habits, avoid overeating, and eat in a calm environment. Sip warm water throughout the day and take a gentle walk after meals. Chew food thoroughly and avoid eating late at night.",
+                vata_recommendation: "For Vata-related digestive issues like gas, bloating and constipation, focus on warm, cooked, easy-to-digest foods. Avoid raw, cold foods and irregular eating patterns. Use warming spices like ginger, cumin, and fennel in your diet.",
+                pitta_recommendation: "For Pitta-related digestive issues like acid reflux and inflammation, focus on cooling foods and herbs. Avoid spicy, sour, and fermented foods. Include sweet, bitter and astringent tastes in your diet.",
+                kapha_recommendation: "For Kapha-related digestive issues like slow digestion and excess mucus, focus on light, warm, and spicy foods. Avoid heavy, oily, and sweet foods. Include pungent, bitter and astringent tastes in your diet.",
+                herbs: "Triphala, Ginger, Cumin, Fennel, Ajwain, Aloe Vera, Licorice"
+            },
+            "sleep": {
+                title: "Sleep Problems",
+                general_approach: "Create a conducive sleep environment with comfortable bedding and minimal electronic distractions. Avoid heavy meals and caffeine before bedtime. Establish a regular sleep schedule and practice relaxation techniques.",
+                vata_recommendation: "For Vata-related sleep issues like insomnia and restlessness, establish a regular sleep routine. Take a warm bath before bed with calming essential oils. Practice gentle breathing exercises and avoid stimulating activities before sleep.",
+                pitta_recommendation: "For Pitta-related sleep issues like difficulty falling asleep due to an active mind, cool your body temperature before bed. Avoid working late into the night and practice cooling breathwork. Use sandalwood or rose essential oil.",
+                kapha_recommendation: "For Kapha-related sleep issues like oversleeping and feeling groggy, avoid daytime naps and wake up early. Keep your bedroom well-ventilated and exercise regularly but not before bed. Use invigorating scents like eucalyptus.",
+                herbs: "Ashwagandha, Brahmi, Jatamansi, Chamomile, Valerian Root, Nutmeg, Shankhapushpi"
+            },
+            "stress": {
+                title: "Stress & Anxiety",
+                general_approach: "Practice regular mindfulness meditation, deep breathing exercises, and moderate physical activity. Maintain balanced nutrition and hydration. Consider reducing caffeine and adopting stress management strategies.",
+                vata_recommendation: "For Vata-related anxiety characterized by worry and racing thoughts, establish daily routines and avoid excessive stimulation. Practice grounding exercises like gentle yoga and meditation. Keep warm and get adequate rest.",
+                pitta_recommendation: "For Pitta-related stress characterized by irritability and intensity, practice cooling breathwork and spend time in nature. Avoid competitive situations when stressed and make time for leisure activities.",
+                kapha_recommendation: "For Kapha-related stress characterized by lethargy and withdrawal, engage in regular stimulating exercise and vary your routine. Practice energizing breathing techniques and expose yourself to new experiences.",
+                herbs: "Ashwagandha, Brahmi, Holy Basil (Tulsi), Jatamansi, Shankhapushpi, Bhringaraj, Saffron"
+            },
+            "skin": {
+                title: "Skin Issues",
+                general_approach: "Maintain good hydration, balanced nutrition rich in antioxidants, and regular cleansing routines. Protect skin from environmental damage and consider natural, non-toxic skincare products.",
+                vata_recommendation: "For Vata-related skin issues like dryness and roughness, use warm oil massage regularly. Keep hydrated and consume healthy fats. Protect your skin from harsh winds and cold weather.",
+                pitta_recommendation: "For Pitta-related skin issues like inflammation, rashes, and acne, use cooling aloe vera gel and natural face packs. Avoid sun exposure and spicy foods. Stay hydrated with cooling drinks.",
+                kapha_recommendation: "For Kapha-related skin issues like oiliness and congestion, use gentle exfoliation and clay masks. Keep your skincare routine stimulating and light. Avoid heavy creams and oils.",
+                herbs: "Neem, Turmeric, Aloe Vera, Manjistha, Guduchi, Sandalwood, Brahmi"
+            },
+            "joint": {
+                title: "Joint Pain",
+                general_approach: "Maintain appropriate weight, engage in suitable physical activity, and ensure proper joint alignment during activities. Consider anti-inflammatory herbs and supplements after consulting a healthcare provider.",
+                vata_recommendation: "For Vata-related joint pain characterized by cracking, popping, and variable pain, apply warm sesame oil and keep joints warm. Avoid cold exposure and practice gentle joint movements. Include healthy fats in your diet.",
+                pitta_recommendation: "For Pitta-related joint pain characterized by inflammation, redness, and heat, apply cooling treatments like aloe vera or sandalwood paste. Avoid overexertion and heating foods.",
+                kapha_recommendation: "For Kapha-related joint pain characterized by swelling, heaviness, and stiffness, use dry heat and stimulating herbs. Maintain regular movement and avoid static positions. Reduce heavy, oily foods.",
+                herbs: "Turmeric, Boswellia, Guggulu, Ashwagandha, Ginger, Castor Oil, Nirgundi"
+            },
+            "fever": {
+                title: "Fever",
+                general_approach: "Rest adequately and stay well-hydrated. Consume light, easily digestible foods. Consider gentle tepid sponging if fever is high. Avoid overly cold or frozen items during recovery.",
+                vata_recommendation: "For Vata-type fever often characterized by chills, irregular temperature, and anxiety, take warm herbal teas with ginger and cinnamon. Keep warm and avoid cold drinks. Get plenty of rest and stay hydrated with warm water.",
+                pitta_recommendation: "For Pitta-type fever characterized by high temperature, burning sensation, and irritability, use cooling herbs like coriander and mint. Apply cool sandalwood paste on forehead and wrists. Drink cooling teas and coconut water.",
+                kapha_recommendation: "For Kapha-type fever characterized by moderate temperature, congestion, and lethargy, use warming, stimulating herbs like ginger, black pepper, and tulsi. Avoid dairy and cold foods during recovery.",
+                herbs: "Tulsi (Holy Basil), Neem, Ginger, Guduchi (Giloy), Coriander, Sandalwood, Peppermint"
+            },
+            "cold": {
+                title: "Common Cold",
+                general_approach: "Rest adequately and increase warm fluid intake. Consume immunity-boosting herbs and foods. Keep the respiratory tract moist with steam inhalation. Avoid cold foods and drinks during recovery.",
+                vata_recommendation: "For Vata-type cold with dry cough, sneezing, and variable symptoms, drink warm ginger tea with honey. Use steam inhalation with eucalyptus oil. Stay warm and get extra rest. Avoid cold and raw foods.",
+                pitta_recommendation: "For Pitta-type cold with yellow or green discharge, sore throat, and fever, use cooling herbs like mint and coriander. Drink aloe vera juice with honey. Avoid spicy, sour, and fermented foods.",
+                kapha_recommendation: "For Kapha-type cold with congestion, thick white mucus, and sluggishness, use pungent herbs like ginger, black pepper, and cinnamon. Avoid dairy, sugar, and cold foods. Stay active to prevent stagnation.",
+                herbs: "Tulsi (Holy Basil), Ginger, Black Pepper, Cinnamon, Licorice, Sitopaladi, Honey"
+            },
+            "cough": {
+                title: "Cough",
+                general_approach: "Keep the respiratory tract moist with steam and adequate hydration. Avoid irritants like smoke and pollution. Rest voice if needed and elevate head while sleeping.",
+                vata_recommendation: "For Vata-type dry, hacking cough, use demulcent herbs like licorice mixed with honey. Sip warm ginger tea throughout the day. Apply warm sesame oil on chest and back. Avoid cold, dry environments.",
+                pitta_recommendation: "For Pitta-type cough with yellow phlegm or blood-tinged sputum, use cooling herbs like licorice and honey in warm water. Gargle with turmeric in warm water. Avoid hot, spicy foods.",
+                kapha_recommendation: "For Kapha-type cough with thick white or clear phlegm, use pungent herbs like ginger, black pepper, and honey in warm water. Avoid dairy, sugar, and cold foods. Use dry heat and steam inhalation.",
+                herbs: "Honey, Tulsi, Licorice, Ginger, Black Pepper, Turmeric, Vasaka, Pippali"
+            },
+            "acidity": {
+                title: "Acidity & Heartburn",
+                general_approach: "Eat smaller, more frequent meals and avoid lying down immediately after eating. Minimize trigger foods such as spicy, fried, and acidic items. Consider elevating the head of your bed to prevent nighttime reflux.",
+                vata_recommendation: "For Vata-type acidity with variable symptoms and bloating, eat regular, warm meals. Include ghee in your diet. Chew fennel seeds after meals. Avoid raw foods, caffeine, and eating while anxious.",
+                pitta_recommendation: "For Pitta-type acidity with burning sensation and sharp pain, use cooling herbs like aloe vera juice, amla, and coconut water. Avoid spicy, sour, and fermented foods. Include sweet and bitter tastes in your diet.",
+                kapha_recommendation: "For Kapha-type acidity with heavy feeling and slow digestion, use warming digestive herbs like ginger, cumin, and coriander. Avoid heavy, oily foods and late-night eating. Include pungent and bitter tastes.",
+                herbs: "Amla, Aloe Vera, Fennel, Licorice, Cumin, Coriander, Triphala, Mint"
+            },
+            "headache": {
+                title: "Headache",
+                general_approach: "Identify and avoid personal triggers. Maintain regular sleep, meal times, and hydration. Practice stress management techniques such as meditation and deep breathing.",
+                vata_recommendation: "For Vata-type headaches often occurring with stress, irregular sleep, and changing weather, apply warm sesame oil to temples and scalp. Practice calming pranayama (breathing exercises). Maintain regular daily routine.",
+                pitta_recommendation: "For Pitta-type headaches often occurring with heat, bright light, and during midday, apply cool sandalwood or aloe vera paste to forehead. Rest in a cool, dark room. Avoid excessive sun exposure and hot, spicy foods.",
+                kapha_recommendation: "For Kapha-type headaches often occurring with sinus congestion and in mornings, use warming herbs like ginger and eucalyptus. Practice stimulating pranayama. Avoid oversleeping and heavy foods.",
+                herbs: "Brahmi, Ashwagandha, Sandalwood, Ginger, Peppermint, Lavender, Eucalyptus, Jatamansi"
+            },
+            "allergy": {
+                title: "Allergies",
+                general_approach: "Identify and minimize exposure to known allergens. Support immune system health through balanced nutrition and good sleep. Keep living spaces clean and well-ventilated.",
+                vata_recommendation: "For Vata-type allergies with variable symptoms and dry reactions, strengthen immunity with warming herbs. Practice nasya (nasal oil application) with sesame oil. Maintain regular routine and protect from cold, dry weather.",
+                pitta_recommendation: "For Pitta-type allergies with inflammatory responses and rashes, use cooling herbs and foods. Apply aloe vera gel on affected areas. Avoid hot, spicy foods and excessive sun exposure during allergy seasons.",
+                kapha_recommendation: "For Kapha-type allergies with congestion and excess mucus, use pungent herbs and spices. Practice regular exercise and steam inhalation. Avoid dairy, sugar, and cold foods during allergy seasons.",
+                herbs: "Turmeric, Neem, Guduchi (Giloy), Tulsi, Pippali, Honey, Trikatu, Amla"
+            }
+        };
+        
+        // Handle concern selection
+        concernSelector.addEventListener('change', function() {
+            const concernKey = this.value;
+            if (concernKey && remediesData[concernKey]) {
+                displayRemedy(remediesData[concernKey]);
+            }
+        });
+        
+        // Display remedy details
+        function displayRemedy(remedy) {
+            // Update title and content
+            remedyTitle.textContent = remedy.title;
+            generalApproach.textContent = remedy.general_approach;
+            
+            {% if 'quiz_results' not in session %}
+            // Update individual dosha recommendations if no quiz results
+            vataRecommendation.textContent = remedy.vata_recommendation;
+            pittaRecommendation.textContent = remedy.pitta_recommendation;
+            kaphaRecommendation.textContent = remedy.kapha_recommendation;
+            {% else %}
+            // Update personalized content based on user's dosha
+            const dominantDosha = "{{ session['quiz_results'].dominant_dosha }}";
+            if (dominantDosha === 'vata') {
+                personalizedContent.textContent = remedy.vata_recommendation;
+            } else if (dominantDosha === 'pitta') {
+                personalizedContent.textContent = remedy.pitta_recommendation;
+            } else if (dominantDosha === 'kapha') {
+                personalizedContent.textContent = remedy.kapha_recommendation;
+            }
+            
+            {% if session['quiz_results'].secondary_dosha %}
+            // Update secondary dosha content if available
+            const secondaryDosha = "{{ session['quiz_results'].secondary_dosha }}";
+            if (secondaryDosha === 'vata') {
+                secondaryDoshaContent.textContent = remedy.vata_recommendation;
+            } else if (secondaryDosha === 'pitta') {
+                secondaryDoshaContent.textContent = remedy.pitta_recommendation;
+            } else if (secondaryDosha === 'kapha') {
+                secondaryDoshaContent.textContent = remedy.kapha_recommendation;
+            }
+            {% endif %}
+            {% endif %}
+            
+            // Update herbs
+            herbsContent.innerHTML = '';
+            const herbs = remedy.herbs.split(', ');
+            herbs.forEach(herb => {
+                const herbBadge = document.createElement('span');
+                herbBadge.className = 'badge bg-success bg-opacity-10 text-success px-3 py-2';
+                herbBadge.textContent = herb;
+                herbsContent.appendChild(herbBadge);
+            });
+            
+            // Show remedy container
+            remedyContainer.style.display = 'block';
+        }
+    });
+</script>
+{% endblock %}

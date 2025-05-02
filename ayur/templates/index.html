@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Ayurveda Prakruti Assessment - Discover Your Unique Constitution{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="mb-3">Discover Your <span class="text-success">Ayurvedic Constitution</span></h1>
+                <p class="lead mb-4">Understand your unique mind-body type and receive personalized health recommendations based on the ancient wisdom of Ayurveda.</p>
+                <div class="d-flex flex-wrap">
+                    <a href="{{ url_for('quiz') }}" class="btn btn-success btn-lg me-3 mb-3">Take the Quiz</a>
+                    <a href="{{ url_for('prakruti_types') }}" class="btn btn-outline-success btn-lg mb-3">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='images/hero-image.jpg') }}" alt="Ayurveda" class="img-fluid rounded-3 shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center">Why Understand Your Prakruti</h2>
+        <div class="row g-4 mt-3">
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-success bg-opacity-10 text-success rounded-circle mb-3 mx-auto">
+                            <i class="fas fa-heartbeat fa-2x"></i>
+                        </div>
+                        <h3 class="h5">Personalized Health Insights</h3>
+                        <p class="text-muted">Discover diet, lifestyle, and exercise recommendations tailored to your unique constitution.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-success bg-opacity-10 text-success rounded-circle mb-3 mx-auto">
+                            <i class="fas fa-balance-scale fa-2x"></i>
+                        </div>
+                        <h3 class="h5">Balance Your Doshas</h3>
+                        <p class="text-muted">Learn practical ways to maintain balance and prevent imbalances that lead to health issues.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-success bg-opacity-10 text-success rounded-circle mb-3 mx-auto">
+                            <i class="fas fa-brain fa-2x"></i>
+                        </div>
+                        <h3 class="h5">Self-Understanding</h3>
+                        <p class="text-muted">Gain deeper insights into your physical, mental, and emotional tendencies and patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Ayurveda Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="{{ url_for('static', filename='images/about-ayurveda.jpg') }}" alt="About Ayurveda" class="img-fluid rounded-3 shadow">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="mb-4">What is Ayurveda?</h2>
+                <p>Ayurveda is a 5,000-year-old system of natural healing that originated in India. It's not just a medical system but a science of life (Ayur = life, Veda = science or knowledge).</p>
+                <p>Ayurveda emphasizes prevention and encourages the maintenance of health through close attention to balance in one's life through proper diet, lifestyle, and herbal remedies.</p>
+                <p>Central to Ayurvedic philosophy is the concept of three doshas: Vata, Pitta, and Kapha. These are biological energies found throughout the human body and mind, and they govern all physical and mental processes.</p>
+                <a href="{{ url_for('prakruti_types') }}" class="btn btn-outline-success mt-3">Learn About Doshas</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center">How It Works</h2>
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="text-center">
+                    <div class="step-circle bg-success text-white rounded-circle mb-3 mx-auto">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Take the Quiz</h3>
+                    <p class="text-muted">Answer a series of questions about your physical characteristics, behaviors, and tendencies.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="text-center">
+                    <div class="step-circle bg-success text-white rounded-circle mb-3 mx-auto">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Get Your Results</h3>
+                    <p class="text-muted">Discover your unique dosha composition with a detailed breakdown of your Vata, Pitta, and Kapha proportions.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="step-circle bg-success text-white rounded-circle mb-3 mx-auto">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="h5 mb-3">Personalized Recommendations</h3>
+                    <p class="text-muted">Receive tailored dietary, lifestyle, and remedy suggestions based on your dosha profile.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CTA Section -->
+<section class="py-5 bg-success text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Begin Your Ayurvedic Journey Today</h2>
+        <p class="lead mb-4">Discover your unique mind-body type and receive personalized health recommendations.</p>
+        <a href="{{ url_for('quiz') }}" class="btn btn-light btn-lg px-4">Take the Prakruti Quiz</a>
+    </div>
+</section>
+{% endblock %}

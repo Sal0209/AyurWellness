@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Prakruti Types - Vata, Pitta, Kapha{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="section-title text-center">Understanding Prakruti Types</h1>
+    <p class="text-center lead mb-5">Learn about the three doshas (Vata, Pitta, and Kapha) that make up your unique constitution.</p>
+    
+    <!-- Introduction -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-3">What is Prakruti?</h2>
+                    <p>Prakruti refers to your unique constitution or body-mind type determined at the moment of conception. According to Ayurveda, each person has a unique proportion of the three doshas: Vata, Pitta, and Kapha.</p>
+                    <p>Your Prakruti remains constant throughout your lifetime and influences your physical attributes, mental tendencies, and susceptibility to certain health conditions. Understanding your Prakruti helps you make lifestyle choices that maintain balance and prevent illness.</p>
+                    <p class="mb-0">Take our <a href="{{ url_for('quiz') }}">Prakruti assessment quiz</a> to discover your unique dosha composition.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vata Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm overflow-hidden">
+                <div class="card-header bg-vata text-white py-3">
+                    <h2 class="h3 mb-0" style="background-color: green; color: black;">Vata Dosha: Air & Ether</h2>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <img src="{{ url_for('static', filename='images/vata-dosha.jpg') }}" alt="Vata Dosha" class="img-fluid rounded mb-3">
+                            <div class="dosha-traits p-3 bg-light rounded">
+                                <h4 class="h6 mb-2">Key Traits:</h4>
+                                <ul class="mb-0 ps-3">
+                                    <li>Creative and quick thinking</li>
+                                    <li>Enthusiastic and lively</li>
+                                    <li>Slender build with prominent joints</li>
+                                    <li>Dry skin and hair</li>
+                                    <li>Variable appetite and digestion</li>
+                                    <li>Light, interrupted sleep</li>
+                                    <li>Quick to learn, may forget easily</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="h5 mb-3">Vata Characteristics</h3>
+                            <p>Vata embodies the elements of air and ether, governing movement and change in the body and mind. People with a predominant Vata constitution tend to be thin, light, and quick in their thoughts and actions.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Physical Characteristics:</h4>
+                            <p>Vata types typically have a light, slender frame with prominent joints and veins. They may have dry skin, brittle nails, and thin, frizzy hair. They tend to have irregular hunger and thirst patterns and may experience constipation.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Mental & Emotional Characteristics:</h4>
+                            <p>Mentally, Vata types are quick, creative, and enthusiastic. They learn quickly but may forget easily. They tend to speak rapidly and have active imaginations. Emotionally, they can experience rapid mood changes and may be prone to anxiety or worry when out of balance.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Balance & Imbalance:</h4>
+                            <p>When in balance, Vata individuals are creative, flexible, and joyful. When imbalanced, they may experience anxiety, insomnia, constipation, dry skin, and fatigue.</p>
+                            
+                            <div class="mt-4">
+                                <h4 class="h6 mb-2">Balancing Tips for Vata:</h4>
+                                <ul>
+                                    <li>Maintain regular daily routines for eating, sleeping, and activities</li>
+                                    <li>Favor warm, moist, and cooked foods over cold, dry foods</li>
+                                    <li>Stay hydrated and drink warm beverages</li>
+                                    <li>Use warm oils for self-massage (abhyanga)</li>
+                                    <li>Practice gentle, grounding yoga and meditation</li>
+                                    <li>Keep warm and avoid excessive exposure to cold, dry weather</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pitta Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm overflow-hidden">
+                <div class="card-header bg-pitta text-white py-3">
+                    <h2 class="h3 mb-0" style="background-color: green; color: black;">Pitta Dosha: Fire & Water</h2>
+
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <img src="{{ url_for('static', filename='images/pitta-dosha.jpg') }}" alt="Pitta Dosha" class="img-fluid rounded mb-3">
+                            <div class="dosha-traits p-3 bg-light rounded">
+                                <h4 class="h6 mb-2">Key Traits:</h4>
+                                <ul class="mb-0 ps-3">
+                                    <li>Sharp intellect and focus</li>
+                                    <li>Good leadership qualities</li>
+                                    <li>Medium build with good muscle</li>
+                                    <li>Warm skin with reddish tones</li>
+                                    <li>Strong appetite and digestion</li>
+                                    <li>Moderate sleep needs</li>
+                                    <li>Competitive and ambitious</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="h5 mb-3">Pitta Characteristics</h3>
+                            <p>Pitta embodies the elements of fire and water, governing metabolism, energy production, and transformation in the body. People with a predominant Pitta constitution tend to be of medium build with a focused, intense temperament.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Physical Characteristics:</h4>
+                            <p>Pitta types typically have a medium, well-proportioned build with good muscle development. They often have warm skin with a reddish hue, sharp features, and may be prone to early graying or hair loss. They have strong appetites and efficient digestion.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Mental & Emotional Characteristics:</h4>
+                            <p>Mentally, Pitta types are sharp, focused, and intelligent. They have good memory and comprehension skills and tend to be articulate. Emotionally, they can be passionate and intense, displaying both courage and irritability when imbalanced.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Balance & Imbalance:</h4>
+                            <p>When in balance, Pitta individuals are efficient, articulate, and confident leaders. When imbalanced, they may experience inflammation, skin rashes, acid reflux, and irritability or anger.</p>
+                            
+                            <div class="mt-4">
+                                <h4 class="h6 mb-2">Balancing Tips for Pitta:</h4>
+                                <ul>
+                                    <li>Avoid excessive heat, sun exposure, and hot, spicy foods</li>
+                                    <li>Favor cooling, moderately heavy foods and drinks</li>
+                                    <li>Include sweet, bitter, and astringent tastes in your diet</li>
+                                    <li>Engage in moderate exercise during cooler times of day</li>
+                                    <li>Practice cooling forms of yoga and meditation</li>
+                                    <li>Make time for leisure and relaxation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Kapha Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm overflow-hidden">
+                <div class="card-header bg-kapha text-white py-3">
+                    <h2 class="h3 mb-0" style="background-color: green; color: black;">Kapha Dosha: Earth & Water</h2>
+
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <img src="{{ url_for('static', filename='images/kapha-dosha.jpg') }}" alt="Kapha Dosha" class="img-fluid rounded mb-3">
+                            <div class="dosha-traits p-3 bg-light rounded">
+                                <h4 class="h6 mb-2">Key Traits:</h4>
+                                <ul class="mb-0 ps-3">
+                                    <li>Strong and stable build</li>
+                                    <li>Calm and steady temperament</li>
+                                    <li>Smooth, oily skin</li>
+                                    <li>Thick hair and strong nails</li>
+                                    <li>Steady appetite but slow digestion</li>
+                                    <li>Deep, prolonged sleep</li>
+                                    <li>Patient and supportive nature</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="h5 mb-3">Kapha Characteristics</h3>
+                            <p>Kapha embodies the elements of earth and water, governing structure, stability, and lubrication in the body. People with a predominant Kapha constitution tend to have a solid, sturdy build with a calm, steady temperament.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Physical Characteristics:</h4>
+                            <p>Kapha types typically have a strong, well-developed physique with a tendency toward carrying extra weight. They often have smooth, oily skin, thick hair, and strong teeth and nails. They have steady appetites but slower digestion and metabolism.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Mental & Emotional Characteristics:</h4>
+                            <p>Mentally, Kapha types are methodical, stable, and have excellent long-term memory. They are slow to learn but retain information well. Emotionally, they are naturally calm, compassionate, and loyal, though they may become attached or possessive when imbalanced.</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Balance & Imbalance:</h4>
+                            <p>When in balance, Kapha individuals are strong, loyal, and supportive. When imbalanced, they may experience weight gain, congestion, lethargy, and emotional attachment or possessiveness.</p>
+                            
+                            <div class="mt-4">
+                                <h4 class="h6 mb-2">Balancing Tips for Kapha:</h4>
+                                <ul>
+                                    <li>Maintain regular, stimulating exercise</li>
+                                    <li>Favor light, warm, and dry foods with pungent, bitter, and astringent tastes</li>
+                                    <li>Minimize heavy, oily, sweet, and salty foods</li>
+                                    <li>Keep a regular sleep schedule, avoiding oversleeping</li>
+                                    <li>Embrace change and new experiences</li>
+                                    <li>Practice energizing forms of yoga and breathing exercises</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Combined Types Section -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-3">Dual and Tri-Doshic Types</h2>
+                    <p>While some people have a strong predominance of a single dosha, many have two doshas that are almost equally prominent (dual-doshic) or even all three in relative balance (tri-doshic).</p>
+                    
+                    <h4 class="h6 mt-4 mb-2">Common Dual-Doshic Types:</h4>
+                    <ul>
+                        <li><strong>Vata-Pitta:</strong> Creative and intellectual, they combine the quickness of Vata with the sharpness of Pitta.</li>
+                        <li><strong>Pitta-Vata:</strong> Focused and adaptable, they have Pitta's intensity with Vata's creativity.</li>
+                        <li><strong>Vata-Kapha:</strong> Creative yet steady, they blend Vata's energy with Kapha's stability.</li>
+                        <li><strong>Kapha-Vata:</strong> Grounded yet flexible, they combine Kapha's endurance with Vata's adaptability.</li>
+                        <li><strong>Pitta-Kapha:</strong> Determined and steady, they blend Pitta's focus with Kapha's endurance.</li>
+                        <li><strong>Kapha-Pitta:</strong> Methodical and precise, they combine Kapha's patience with Pitta's sharpness.</li>
+                    </ul>
+                    
+                    <h4 class="h6 mt-4 mb-2">Tri-Doshic (Vata-Pitta-Kapha):</h4>
+                    <p>People with a relatively equal balance of all three doshas are considered tri-doshic or balanced. They can display qualities of each dosha and often have adaptable constitutions. However, they still need to be mindful of which dosha may become imbalanced based on lifestyle, diet, and environment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Take Quiz CTA -->
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 bg-success text-white shadow">
+                <div class="card-body p-4 text-center">
+                    <h2 class="h4 mb-3">Discover Your Unique Prakruti</h2>
+                    <p class="mb-4">Take our comprehensive quiz to determine your unique dosha proportions and receive personalized recommendations.</p>
+                    <a href="{{ url_for('quiz') }}" class="btn btn-light btn-lg">Take the Quiz Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
